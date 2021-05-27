@@ -4,7 +4,7 @@ import { DUMMY_MEALS } from "./dummy-meals";
 
 import styles from "./AvailableMeals.module.css";
 
-console.log("dummy meals: ", DUMMY_MEALS);
+// console.log("dummy meals: ", DUMMY_MEALS);
 
 const AvailableMeals = () => {
   const mealsList = DUMMY_MEALS.map((meal) => {
