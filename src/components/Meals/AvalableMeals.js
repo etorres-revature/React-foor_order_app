@@ -8,10 +8,18 @@ import styles from "./AvailableMeals.module.css";
 
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [httpError, setHttpError] = useState(null);
 
   useEffect(() => {
     const fetchMeals = async () => {
+      setIsLoading(true);
       const response = await fetch("urlGoesHere...");
+
+      if (!response.ok) {
+        throw new Error("Something went wrong...");
+      }
+
       const responseData = await response.json();
       const loadedMeals = [];
 
@@ -25,10 +33,32 @@ const AvailableMeals = () => {
       }
 
       setMeals(loadedMeals);
+      setIsLoading(false);
     };
 
-    fetchMeals();
+    try {
+      fetchMeals();
+    } catch (err) {
+      setIsLoading(false);
+      setHttpError(err.message);
+    }
   }, []);
+
+  if (isLoading) {
+    return (
+      <section className={styles.MealsLoading}>
+        <p>Loading...</p>
+      </section>
+    );
+  }
+
+  if (httpError) {
+    return (
+      <section className={styles.MealsError}>
+        <p>{httpError}</p>
+      </section>
+    );
+  }
 
   const mealsList = meals.map((meal) => {
     return (
