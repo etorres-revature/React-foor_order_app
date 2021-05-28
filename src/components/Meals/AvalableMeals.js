@@ -36,12 +36,10 @@ const AvailableMeals = () => {
       setIsLoading(false);
     };
 
-    try {
-      fetchMeals();
-    } catch (err) {
+    fetchMeals().catch((err) => {
       setIsLoading(false);
       setHttpError(err.message);
-    }
+    });
   }, []);
 
   if (isLoading) {
