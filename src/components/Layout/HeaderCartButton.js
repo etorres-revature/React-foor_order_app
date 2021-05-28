@@ -16,7 +16,7 @@ const HeaderCartButton = (props) => {
   const btnClasses = `${styles.button} ${animateBtn ? styles.bump : ""}`;
 
   useEffect(() => {
-    if (cartCtx.items.length === 0) {
+    if (items.length === 0) {
       return;
     }
     setAnimateBtn(true);
